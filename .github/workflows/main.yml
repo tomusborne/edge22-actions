@@ -7,3 +7,6 @@ jobs:
 
   js:
     uses: ./.github/workflows/js-ci.yml
+
+  php:
+    uses: ./.github/workflows/php-ci.yml
