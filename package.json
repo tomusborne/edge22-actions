@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/tomusborne/edge22-actions/issues"
   },
-  "homepage": "https://github.com/tomusborne/edge22-actions#readme"
+  "homepage": "https://github.com/tomusborne/edge22-actions#readme",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
 }
