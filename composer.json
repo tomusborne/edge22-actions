@@ -1,0 +1,16 @@
+{
+    "name": "root/edge22-actions",
+    "description": "Edge22 actions",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jean Paiva",
+            "email": "jeanpaiva29@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "psr/container": "2.0.x-dev"
+    }
+}
