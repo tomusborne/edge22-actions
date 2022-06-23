@@ -1,0 +1,44 @@
+name: JS build files
+
+on:
+  workflow_call:
+    inputs:
+      message:
+        required: true
+        type: string
+      dir:
+        required: true
+        type: string
+
+jobs:
+
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14
+          cache: 'npm'
+
+      - name: 'Cache node_modules'
+        id: 'modules-cache'
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
+
+      - name: 'Run npm install'
+        if: steps.modules-cache.outputs.cache-hit != 'true'
+        run: npm install
+
+      - name: 'Run npm build'
+        run: npm run build
+
+      - name: 'Commit build changes'
+        uses: EndBug/add-and-commit@v9
+        with:
+          default_author: github_actions
+          message: ${{ inputs.message }}
+          add: ${{ inputs.dir }}

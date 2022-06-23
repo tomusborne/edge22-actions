@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "lint:js": "echo \"Running lint:js\" && exit 0",
-    "test": "echo \"Running unit tests\" && exit 0"
+    "test": "echo \"Running unit tests\" && exit 0",
+    "build": "echo \"Running build\" && exit 0"
   },
   "repository": {
     "type": "git",

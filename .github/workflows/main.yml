@@ -10,3 +10,10 @@ jobs:
 
   php:
     uses: ./.github/workflows/php-ci.yml
+
+  build:
+    uses: ./.github/workflows/js-build.yml
+    needs: js
+    with:
+      message: 'Update dist files'
+      dir: 'dist/'
