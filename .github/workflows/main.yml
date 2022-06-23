@@ -1,0 +1,12 @@
+name: 'Main action'
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  js:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: ./.github/workflows/js-ci
