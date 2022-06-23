@@ -4,7 +4,8 @@
   "description": "Edge22 actions",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Running tests\" && exit 0"
+    "lint:js": "echo \"Running lint:js\" && exit 0",
+    "test": "echo \"Running unit tests\" && exit 0"
   },
   "repository": {
     "type": "git",
