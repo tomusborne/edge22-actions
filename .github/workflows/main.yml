@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: ./.github/workflows/js-ci
+      - uses: ./.github/workflows/js-ci.yml
