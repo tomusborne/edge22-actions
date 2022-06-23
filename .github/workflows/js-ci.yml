@@ -1,8 +1,7 @@
-name: JS CI
+name: 'JS CI'
 
 on:
-#  workflow_call:
-  workflow_dispatch:
+  workflow_call:
 
 jobs:
 
@@ -14,12 +13,23 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '14'
+          cache: 'npm'
 
-      - name: Installing packages
+      - name: 'Cache node_modules'
+        id: 'modules-cache'
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-modules-
+
+      - name: 'Run npm install'
+        if: steps.modules-cache.outputs.cache-hit != 'true'
         run: npm install
 
-      - name: Running lint
+      - name: 'Run npm run lint:js'
         run: npm run lint:js
 
-      - name: Running tests
+      - name: 'Run npm test'
         run: npm test
