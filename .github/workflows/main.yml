@@ -6,13 +6,13 @@ on:
 jobs:
 
   js:
-    uses: tomusborne/edge22-actions/.github/workflows/js-ci.yml
+    uses: tomusborne/edge22-actions/.github/workflows/js-ci.yml@v1
 
   php:
-    uses: tomusborne/edge22-actions/.github/workflows/php-ci.yml
+    uses: tomusborne/edge22-actions/.github/workflows/php-ci.yml@v1
 
   build:
-    uses: tomusborne/edge22-actions/.github/workflows/js-build.yml
+    uses: tomusborne/edge22-actions/.github/workflows/js-build.yml@v1
     needs: js
     with:
       message: 'Update dist files'
