@@ -1,0 +1,23 @@
+name: 'Release check'
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr-title:
+        required: true
+        default: 'Release: 1.0.1'
+        description: 'Test'
+        type: string
+
+jobs:
+
+  check-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Get version'
+        run: export NEXT_VERSION=${PR_TITLE:9} | echo $NEXT_VERSION
+        env:
+          PR_TITLE: ${{ inputs.pr-title }}
+
+# ${{ github.event.pull_request.title }}
