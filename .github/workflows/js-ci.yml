@@ -1,0 +1,25 @@
+name: JS CI
+
+on:
+#  workflow_call:
+  workflow_dispatch:
+
+jobs:
+
+  main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - name: Installing packages
+        run: npm install
+
+      - name: Running lint
+        run: npm run lint:js
+
+      - name: Running tests
+        run: npm test
