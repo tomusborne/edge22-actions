@@ -15,9 +15,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 'Get version'
-        run: export NEXT_VERSION=${PR_TITLE:9} | echo $NEXT_VERSION
+      - uses: actions/checkout@v3
+      - run: export NEXT_VERSION=${PR_TITLE:9}
         env:
           PR_TITLE: ${{ inputs.pr-title }}
+      - run: 'git show README.md | grep -wq "+Stable tags: $NEXT_VERSION" | exit "$?"'
 
 # ${{ github.event.pull_request.title }}
