@@ -3,19 +3,12 @@ name: 'Release check'
 on:
   pull_request:
     branches:
-      - master
-
-  workflow_dispatch:
-    inputs:
-      pr-title:
-        required: true
-        default: 'Release: 1.0.1'
-        description: 'Test'
-        type: string
+      - main
 
 jobs:
 
   check-version:
+    name: 'Check versions'
     runs-on: ubuntu-latest
 
     steps:
@@ -28,5 +21,15 @@ jobs:
 
       - name: 'Check package.json version'
         run: 'cat package.json | grep -w "\"version\": \"${PR_TITLE:9}\","'
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+
+      - name: 'Check plugin header version'
+        run: 'cat plugin.php | grep -w " * Version: ${PR_TITLE:9}"'
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+
+      - name: 'Check PHP constant version'
+        run: "cat plugin.php | grep -w \"define( 'GENERATEBLOCKS_VERSION', '${PR_TITLE:9}' );\""
         env:
           PR_TITLE: ${{ github.event.pull_request.title }}
