@@ -10,13 +10,13 @@ concurrency:
 jobs:
 
   js:
-    uses: tomusborne/edge22-actions/.github/workflows/js-ci.yml@540dd109ecf310f1566b4aa0cf946ea369ae79da
+    uses: tomusborne/edge22-actions/.github/workflows/js-ci.yml@main
 
   php:
-    uses: tomusborne/edge22-actions/.github/workflows/php-ci.yml@540dd109ecf310f1566b4aa0cf946ea369ae79da
+    uses: tomusborne/edge22-actions/.github/workflows/php-ci.yml@main
 
   build:
-    uses: tomusborne/edge22-actions/.github/workflows/js-build.yml@540dd109ecf310f1566b4aa0cf946ea369ae79da
+    uses: tomusborne/edge22-actions/.github/workflows/js-build.yml@main
     needs: js
     with:
       message: 'Update dist files'

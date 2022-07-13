@@ -15,7 +15,16 @@ jobs:
           node-version: '14'
           cache: 'npm'
 
+      - name: 'Check changed files'
+        id: 'changed-files'
+        uses: tj-actions/changed-files@v23.1
+        with:
+          fetch-depth: 2
+          files: |
+            src/**
+
       - name: 'Cache node_modules'
+        if: steps.changed-files.outputs.any_changed == 'true'
         id: 'modules-cache'
         uses: actions/cache@v3
         with:
@@ -23,11 +32,15 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
 
       - name: 'Run npm install'
-        if: steps.modules-cache.outputs.cache-hit != 'true'
+        if: |
+          steps.modules-cache.outputs.cache-hit != 'true' &&
+          steps.changed-files.outputs.any_changed == 'true'
         run: npm install
 
       - name: 'Run npm run lint:js'
+        if: steps.changed-files.outputs.any_changed == 'true'
         run: npm run lint:js
 
       - name: 'Run npm test'
+        if: steps.changed-files.outputs.any_changed == 'true'
         run: npm test
