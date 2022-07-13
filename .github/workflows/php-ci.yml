@@ -17,10 +17,20 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
 
+      - name: 'Check changed files'
+        id: 'changed-files'
+        uses: tj-actions/changed-files@v23.1
+        with:
+          fetch-depth: 2
+          files: |
+            **/*.php
+
       - name: 'Validate composer'
+        if: steps.changed-files.outputs.any_changed == 'true'
         run: composer validate --strict
 
       - name: 'Cache vendor'
+        if: steps.changed-files.outputs.any_changed == 'true'
         id: 'vendor-cache'
         uses: actions/cache@v3
         with:
@@ -28,11 +38,15 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/composer.lock') }}
 
       - name: 'Run composer install'
-        if: steps.vendor-cache.outputs.cache-hit != 'true'
+        if: |
+          steps.vendor-cache.outputs.cache-hit != 'true' &&
+          steps.changed-files.outputs.any_changed == 'true'
         run: composer install --prefer-dist --no-progress
 
       - name: 'Run composer run-script lint'
+        if: steps.changed-files.outputs.any_changed == 'true'
         run: composer run-script lint
 
       - name: 'Run composer run-script test'
+        if: steps.changed-files.outputs.any_changed == 'true'
         run: composer run-script test
