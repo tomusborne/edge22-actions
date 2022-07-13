@@ -19,4 +19,4 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 
-define( 'GENERATEBLOCKS_VERSION', '1.0.1' );
+define( 'GENERATEBLOCKS_VERSION', '1.0.0' );
