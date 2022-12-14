@@ -22,7 +22,15 @@ jobs:
           node-version: 14
           cache: 'npm'
 
+      - name: 'Check changed files'
+        id: 'changed-files'
+        uses: tj-actions/changed-files@v23.1
+        with:
+          files: |
+            src/**
+
       - name: 'Cache node_modules'
+        if: steps.changed-files.outputs.any_changed == 'true'
         id: 'modules-cache'
         uses: actions/cache@v3
         with:
@@ -30,13 +38,17 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
 
       - name: 'Run npm install'
-        if: steps.modules-cache.outputs.cache-hit != 'true'
+        if: |
+          steps.modules-cache.outputs.cache-hit != 'true' &&
+          steps.changed-files.outputs.any_changed == 'true'
         run: npm install
 
       - name: 'Run npm build'
+        if: steps.changed-files.outputs.any_changed == 'true'
         run: npm run build
 
       - name: 'Commit build changes'
+        if: steps.changed-files.outputs.any_changed == 'true'
         uses: EndBug/add-and-commit@v9
         with:
           default_author: github_actions
