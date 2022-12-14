@@ -9,6 +9,9 @@ concurrency:
 
 jobs:
 
+  release-check:
+    uses: tomusborne/edge22-actions/.github/workflows/release-check.yml@main
+
   js:
     uses: tomusborne/edge22-actions/.github/workflows/js-ci.yml@main
 

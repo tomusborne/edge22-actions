@@ -13,8 +13,5 @@
     "scripts": {
         "lint": "echo \"PHP lint\" && exit 0",
         "test": "echo \"PHP tests\" && exit 0"
-    },
-    "require": {
-        "psr/container": "2.0.*"
     }
 }
